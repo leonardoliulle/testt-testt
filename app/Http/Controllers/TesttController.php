@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\TesttModel;
@@ -31,6 +32,7 @@ class TesttController extends Controller
         // Set other attributes as needed
         $TesttModel->save();
 
+        return redirect()->route('testt.show');
         // testt::create($request->all());
         // return redirect()->route('items.index');
     }
@@ -45,7 +47,7 @@ class TesttController extends Controller
     public function show()
     {
         // $TesttModel = new TesttModel();
-        $data = DB::table('testt')->orderBy('created_at', 'desc')->get();
+        $data = DB::table('testt')->orderBy('created_at', 'desc')->limit(30)->get();
         echo view('testt.header');
         echo view('testt.show')->with(['testt' => $data]);
     }
