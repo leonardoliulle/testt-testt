@@ -10,7 +10,7 @@
 <br><br>
 <div class='container'>
     <nav>
-        <a class='btn btn-primary' href="{{route('testt.create')}}">Criptar</a>
+        <a class='btn btn-primary' href="{{ route('testt.create') }}">Criptar</a>
         <a class='btn btn-primary' href="{{route('testt.show', ['testt' => 'ar'])}}">Checar</a>
     </nav>
 </div>

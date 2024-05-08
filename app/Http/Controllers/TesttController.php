@@ -18,8 +18,8 @@ class TesttController extends Controller
     
     public function create()
     {
-        echo view('testt.header');
-        echo view('testt.create');
+        echo view('testt/header');
+        echo view('testt/create');
     }
     
     public function store(Request $request)
