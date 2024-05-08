@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\TesttModel;
+
 
 class TesttController extends Controller
 {
@@ -16,20 +18,38 @@ class TesttController extends Controller
     
     public function create()
     {
-        return view('testt.create');
+        echo view('testt.header');
+        echo view('testt.create');
     }
     
     public function store(Request $request)
     {
-        $model = new TesttModel();
-        $model->msg = base64_encode($request->input('msg'));
-        $model->pass = base64_encode($request->input('pass'));
-        $model->ip = $request->input('ip');
+        $TesttModel = new TesttModel();
+        $TesttModel->msg = $request->input('msg');
+        $TesttModel->pass = $request->input('pass');
+        $TesttModel->ip = $request->input('ip');
         // Set other attributes as needed
-        $model->save();
+        $TesttModel->save();
 
         // testt::create($request->all());
         // return redirect()->route('items.index');
-    }   
+    }
+
+    public function tabela(Request $request)
+    {
+        // $TesttModel = new TesttModel();
+        // TesttModel::findall();
+        echo " inside TesttController By L showww";
+    }
+    
+    public function show()
+    {
+        // $TesttModel = new TesttModel();
+        $data = DB::table('testt')->orderBy('created_at', 'desc')->get();
+        echo view('testt.header');
+        echo view('testt.show')->with(['testt' => $data]);
+    }
+
+
 
 }
