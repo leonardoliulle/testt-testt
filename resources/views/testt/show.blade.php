@@ -12,7 +12,7 @@
         <button type='submit' class='btn btn-danger' type='submit' value='Descriptografar'>Descriptografar</button>
     </form>
 
-    <h3>Últimas 30 mensagens:</h3>
+    <h3>Mensagens:</h3>
 
 
     @php $prevItem = null; $side = 'left'; $time = date('Y-m-d H:i:s');  @endphp 
@@ -27,7 +27,7 @@
             {{ $item->msg}}
             <br><b style='font-size: 8px;'>
                 Quando: {{ $item->created_at}}
-                Quem: {{{ $item->ip}}} 
+                Quem: {{{ substr(md5($item->ip),0,5)}}} 
             </b>
             @php $prevItem = $item->ip @endphp
         <br>
@@ -38,7 +38,7 @@
                 {{ hash('sha256',Crypt::encryptString($item->msg))}}
                 <br><b style='font-size: 8px;'>
                     Quando: {{ $time }}
-                    Quem: {{ rand(0, 99)}} 
+                    Quem: {{ substr(md5(rand(1, 20)),0,5)}} 
                 </b>
                 @php
                     $randomMinutes = rand(1, 10);
