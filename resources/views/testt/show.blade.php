@@ -12,7 +12,7 @@
         <button type='submit' class='btn btn-danger' type='submit' value='Descriptografar'>Descriptografar</button>
     </form>
 
-    <h3>Mensagens:</h3>
+    <h3>Mensagens   :</h3>
 
 
     @php $prevItem = null; $side = 'left'; $time = date('Y-m-d H:i:s');  @endphp 
