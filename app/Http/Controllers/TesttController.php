@@ -28,7 +28,7 @@ class TesttController extends Controller
         $TesttModel = new TesttModel();
         $TesttModel->msg = $request->input('msg');
         $TesttModel->pass = $request->input('pass');
-        $TesttModel->ip = $request->input('ip');
+        $TesttModel->ip = substr(md5($request->input('ip')), 0, 5);
         // Set other attributes as needed
         $TesttModel->save();
 
