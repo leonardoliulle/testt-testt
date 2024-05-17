@@ -25,6 +25,10 @@ class AssessmentForm extends Component
             'obs' => $this->obs,
         ]);
 
+        $Assessment->save();
+
+        // redirect('')
+
         // Optionally, you can emit an event or perform any other actions after submission
 
         // Clear the form fields
@@ -34,6 +38,7 @@ class AssessmentForm extends Component
 
     public function render()
     {
+        
         return view('livewire.assessment-form');
     }
 }

@@ -5,37 +5,23 @@
 
 
 @php
-    $user = request('user');
+    // dd($users);
 @endphp
 
 
 <div class="container">
+    @foreach ($users as $user)
     <form wire:submit.prevent="submit">
-        <div>
-            <label for="whodid">Who Did:
-            <input type="text" wire:model="whodid" id="whodid" value='{{ $user }}' hidden>
-        </div>
-
-        <div>
-            <label for="whoreceive">Who Receive:</label>
-            <input type="text" wire:model="whoreceive" id="whoreceive">
-        </div>
-
-        <div>
-            <label for="strength">Strength:</label>
+            <input type="text" wire:model="whodid" id="whodid" value='{{ $request->input('user')}}' hidden>
+            <label for="whoreceive">Quem vai receber: <b>{{ base64_decode($user->name)}}</b></label><br>
+            <input type="text" wire:model="whoreceive" id="whoreceive" value="{{ $user->towho }}" hidden>
+            <label for="strength">Força:</label>
             <input type="text" wire:model="strength" id="strength">
-        </div>
-
-        <div>
-            <label for="toworkon">To Work On:</label>
-            <input type="text" wire:model="toworkon" id="toworkon">
-        </div>
-
-        <div>
-            <label for="obs">Observation:</label>
-            <textarea wire:model="obs" id="obs"></textarea>
-        </div>
-
-        <button type="submit">Submit</button>
+            <label for="toworkon">Para melhorá:</label>
+            <input type="text" wire:model="toworkon" id="toworkon"><br>
+            <label for="obs" >Observações:</label>
+            <textarea wire:model="obs" id="obs" class="form-control form"></textarea>
+        <button type="submit" >Lançar</button><br><br>    
     </form>
+    @endforeach
 </div>

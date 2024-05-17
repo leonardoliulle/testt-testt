@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assessment;
+use App\Models\UserPublic;
 use Illuminate\Http\Request;
 
 class AssessmentController extends Controller
@@ -34,10 +35,18 @@ class AssessmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Assessment $assessment)
+    public function show(Assessment $assessment, Request $request)
     {
+        $pass = request()->input('pass');
+
+        $users = UserPublic::leftJoin('assessments', 'user_public.id', '=', 'assessments.whodid')
+                            ->whereNull('assessments.whodid')
+                            ->where('user_public.pass', $pass)
+                            ->select('user_public.id as towho','user_public.name' ,'assessments.*')
+                            ->get();
+            // dd($assessment);     
         echo view('assessments/aheader');
-        echo view('livewire/assessment-form');
+        echo view('livewire/assessment-form', ['users' => $users, 'request' => $request]);
     }
 
     /**
