@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 
 class UserPublicController extends Controller
 {
+<<<<<<< HEAD
     /**
      * Display a listing of the resource.
      */
+=======
+
+>>>>>>> 0da956e (New push)
     public function index()
     {
         //
@@ -76,4 +80,12 @@ class UserPublicController extends Controller
     {
         //
     }
+<<<<<<< HEAD
+=======
+
+    public function counter()
+    {
+        echo view('counter.counter');
+    }
+>>>>>>> 0da956e (New push)
 }

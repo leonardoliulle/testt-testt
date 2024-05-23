@@ -11,4 +11,12 @@ class UserPublic extends Model
 
     protected $table = 'user_public'; // Specify the custom table name here
 
+<<<<<<< HEAD
+=======
+    public function assessments()
+    {
+        return $this->hasMany(Assessment::class);
+    }
+
+>>>>>>> 0da956e (New push)
 }

@@ -9,6 +9,7 @@ class Assessment extends Model
 {
     use HasFactory;
 
+<<<<<<< HEAD
     /**
      * The attributes that are mass assignable.
      *
@@ -16,5 +17,11 @@ class Assessment extends Model
      */
     protected $table = 'assessments';
     protected $fillable = ['whodid', 'whoreceive', 'strength', 'toworkon', 'obs'];
+=======
+    public function userpublics()
+    {
+        return $this->belongsTo(UserPublic::class);
+    }
+>>>>>>> 0da956e (New push)
 
 }
