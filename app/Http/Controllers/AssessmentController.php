@@ -37,16 +37,22 @@ class AssessmentController extends Controller
      */
     public function show(Assessment $assessment, Request $request)
     {
-        $pass = request()->input('pass');
 
-        $users = UserPublic::leftJoin('assessments', 'user_public.id', '=', 'assessments.whodid')
-                            ->whereNull('assessments.whodid')
-                            ->where('user_public.pass', $pass)
-                            ->select('user_public.id as towho','user_public.name' ,'assessments.*')
-                            ->get();
-            // dd($assessment);     
         echo view('assessments/aheader');
-        echo view('livewire/assessment-form', ['users' => $users, 'request' => $request]);
+        echo view('assessments/assessment-form');
+        // $user = request()->input('user');
+        // $pass = request()->input('pass');
+
+        // // dd($user);
+        // $users = UserPublic::leftJoin('assessments', 'user_public.id', '=', 'assessments.whodid')
+        //                     ->whereNull('assessments.whodid')
+        //                     ->where('user_public.pass', $pass)
+        //                     ->where('user_public.name','!=', $user)
+        //                     ->select('user_public.id as towho','user_public.name' ,'assessments.*')
+        //                     ->get();
+        //     // dd($assessment);     
+        // echo view('assessments/aheader');
+        // echo view('livewire/assessment-form', ['users' => $users, 'request' => $request]);
     }
 
     /**

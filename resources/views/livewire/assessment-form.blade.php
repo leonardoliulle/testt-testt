@@ -5,16 +5,16 @@
 
 
 @php
-    // dd($users);
+     dd($users);
 @endphp
 
 
 <div class="container">
     @foreach ($users as $user)
     <form wire:submit.prevent="submit">
+        <label for="whoreceive">Quem vai receber: <b>{{ base64_decode($user->name)}}</b></label><br>
+        <input type="text" wire:model="whoreceive" id="whoreceive" value="{{ $user->towho }}" hidden>
             <input type="text" wire:model="whodid" id="whodid" value='{{ $request->input('user')}}' hidden>
-            <label for="whoreceive">Quem vai receber: <b>{{ base64_decode($user->name)}}</b></label><br>
-            <input type="text" wire:model="whoreceive" id="whoreceive" value="{{ $user->towho }}" hidden>
             <label for="strength">Força:</label>
             <input type="text" wire:model="strength" id="strength">
             <label for="toworkon">Para melhorá:</label>
