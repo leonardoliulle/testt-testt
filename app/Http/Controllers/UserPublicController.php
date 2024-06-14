@@ -40,7 +40,7 @@ class UserPublicController extends Controller
         $userPublic->save();
 
         // Redirect back or to a different route after saving the userpublic
-        return redirect()->route('asssessment.show', ['user' => $userPublic->name, 'pass' => $userPublic->pass]);
+        return redirect()->route('asssessment.show', ['i' => $userPublic->name, 'k' => $userPublic->pass]);
     }
 
     /**

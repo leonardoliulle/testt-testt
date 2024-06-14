@@ -15,7 +15,7 @@ class Assessment extends Model
      * @var array
      */
     protected $table = 'assessments';
-    protected $fillable = ['whodid', 'whoreceive', 'strength', 'toworkon', 'obs'];
+    protected $fillable = ['whodid', 'whoreceive', 'strength', 'toworkon', 'obs','created_at','updated_at'];
     public function userpublics()
     {
         return $this->belongsTo(UserPublic::class);

@@ -19,7 +19,6 @@ Route::any('testt/show', [TesttController::class, 'show'])->name('testt.show');
 Route::get('userpublic/create', [UserPublicController::class, 'create'])->name('userpublic.create');
 Route::post('userpublic/store', [UserPublicController::class, 'store'])->name('userpublic.store');
 Route::get('userpublic/show', [UserPublicController::class, 'show'])->name('userpublic.show');
-
 Route::get('assessment/show', [AssessmentController::class, 'show'])->name('asssessment.show');
 
 

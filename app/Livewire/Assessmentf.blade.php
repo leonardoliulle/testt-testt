@@ -39,10 +39,12 @@ class Assessmentf extends Component
         // $this->reset();
     }
 
-    public function onchange()
+    public function onchange(Request $request)
     {
-        $user = request()->input('user');
-        $pass = request()->input('pass');
+        
+        $user = $request->input('i');
+        $pass = $request->input('k');
+        $pass = $request->input('w');
 
         $users = UserPublic::leftJoin('assessments', 'user_public.id', '=', 'assessments.whodid')
             ->whereNull('assessments.whodid')

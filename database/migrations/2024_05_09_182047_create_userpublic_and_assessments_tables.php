@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
+
 
 class CreateUserpublicAndAssessmentsTables extends Migration
 {
@@ -19,10 +21,10 @@ class CreateUserpublicAndAssessmentsTables extends Migration
         // Create Assessment table
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('whodid')->constrained('user_public');
+            $table->string('whodid');
             $table->foreignId('whoreceive')->constrained('user_public');
-            $table->string('strength');
-            $table->string('toworkon');
+            $table->string('strength')->nullable();
+            $table->string('toworkon')->nullable();
             $table->text('obs')->nullable();
             $table->timestamps();
         });
@@ -33,5 +35,6 @@ class CreateUserpublicAndAssessmentsTables extends Migration
         // Drop tables if migration is rolled back
         Schema::dropIfExists('assessments');
         Schema::dropIfExists('user_public');
+        // Schema::dropIfExists('testt');
     }
 }
