@@ -22,6 +22,7 @@ class Assessmentf extends Component
     public $obs;
     public $mycoletion;
     public $mydata;
+    public $myresults;
     public $name = "";
 
 
@@ -36,28 +37,47 @@ class Assessmentf extends Component
         $this->whoreceive = $wwhoreceive;
         $this->passintern = $pass;
 
-        $mycoletion = UserPublic::leftJoin('assessments', 'user_public.id', '=', 'assessments.whodid')
-        // ->whereNull('assessments.whodid')
-        ->where('user_public.pass', $this->passintern)
-        ->where('user_public.name','!=', $this->whodid)
-        ->select('user_public.id as whoreceive','user_public.name' ,'assessments.whodid','assessments.strength','assessments.toworkon','assessments.obs')
+        $mycoletion = UserPublic::where('pass', $this->passintern)
+        ->where('name', '!=', $this->whodid)
+        ->select('id as whoreceive', 'name')
         ->get();
 
-        $theonetovaue = UserPublic::leftJoin('assessments', 'user_public.id', '=', 'assessments.whodid')
+        $theonetovalue = UserPublic::leftJoin('assessments', 'user_public.name', '=', 'assessments.whodid')
         // ->whereNull('assessments.whodid')
-        ->where('user_public.pass', $this->passintern)
-        ->where('user_public.name','!=', $this->whodid)
-        ->where('user_public.name','=', $this->whoreceive)
-        ->select('user_public.id as whoreceive','user_public.name' ,'assessments.whodid','assessments.strength','assessments.toworkon','assessments.obs')
-        ->get();
+        // ->where('user_public.pass','=', $this->passintern)
+        ->where('assessments.whodid','=', $this->whodid)
+        ->where('assessments.whoreceive','=', (int)$this->whoreceive)
+        ->select('assessments.whoreceive as whoreceive','user_public.name' ,'assessments.whodid','assessments.strength','assessments.toworkon','assessments.obs')
+        ->get()->toArray();
 
-   
+        $this->mycoletion = $mycoletion;
 
+       
+        if (!empty($theonetovalue)) {
+
+            $this->strength = $theonetovalue[0]['strength'];
+            $this->toworkon = $theonetovalue[0]['toworkon'];
+            $this->obs = $theonetovalue[0]['obs'];
+        }
+
+        // dump($this->passintern, $this->whodid);
+        
+        $id = UserPublic::where('user_public.pass', $this->passintern)
+        ->where('user_public.name','=', $this->whodid)
+        ->pluck('id')->toArray();
+
+        // dump($id[0]);
+
+        $myresults = UserPublic::leftJoin('assessments', 'user_public.name', '=', 'assessments.whodid')
+        ->where('assessments.whoreceive','=', $id[0])
+        ->select('assessments.whoreceive as whoreceive','user_public.name' ,'assessments.whodid','assessments.strength','assessments.toworkon','assessments.obs')
+        ->get()->toArray();
+
+        $this->myresults = $myresults;
+
+        // dump($this->myresults);
 
             
-            $this->mycoletion = $mycoletion;
-
-            dump($theonetovaue);
         }
 
     public function onmychange($i = null, $k = null, $w = null)
@@ -78,15 +98,14 @@ class Assessmentf extends Component
         // $queries = DB::getQueryLog();
         // Log::info($queries);
         // dd($passintern, $user);
-        $mycoletion = UserPublic::leftJoin('assessments', 'user_public.name', '=', 'assessments.whodid')
-            // ->whereNull('assessments.whodid')
-            ->where('user_public.pass','=', $this->passintern)
-            ->where('user_public.name','!=', $this->whodid)
-            // ->where('assessments.whoreceive','=', $this->whoreceive)
-            ->select('user_public.id as whoreceive','user_public.name' ,'assessments.whodid','assessments.strength','assessments.toworkon','assessments.obs')
-            ->get();
+        $mycoletion = UserPublic::where('pass', $this->passintern)
+        ->where('name', '!=', $this->whodid)
+        ->select('id as whoreceive', 'name')
+        ->get();
 
         $this->mycoletion = $mycoletion;
+
+        // dump($this->mycoletion);
         
         $mydata = UserPublic::leftJoin('assessments', 'user_public.name', '=', 'assessments.whodid')
         // ->whereNull('assessments.whodid')
