@@ -24,6 +24,8 @@ class Assessmentf extends Component
     public $mydata;
     public $myresults;
     public $name = "";
+    public $numerador = 0;
+    public $denominador = 0;
 
 
 
@@ -37,10 +39,32 @@ class Assessmentf extends Component
         $this->whoreceive = $wwhoreceive;
         $this->passintern = $pass;
 
-        $mycoletion = UserPublic::where('pass', $this->passintern)
-        ->where('name', '!=', $this->whodid)
-        ->select('id as whoreceive', 'name')
+        // $mycoletion = UserPublic::where('pass', $this->passintern)
+        // ->where('name', '!=', $this->whodid)
+        // ->select('id as whoreceive', 'name')
+        // ->get();
+
+        $mycoletion = UserPublic::leftJoin('assessments', function($join) {
+            $join->on('user_public.id', '=', 'assessments.whoreceive')
+                 ->where('assessments.whodid', '=', $this->whodid)
+                 ->orWhereNull('assessments.whoreceive');
+        })
+        ->select('user_public.id as whoreceive', 'user_public.name', 'user_public.pass', 'assessments.whodid', 'assessments.whoreceive as checktrue', 'assessments.pass', 'assessments.strength','assessments.toworkon')
+        ->where('user_public.name', '<>', $this->whodid)
+        ->where('user_public.pass', '=', $this->passintern)
         ->get();
+
+        $this->numerador = Assessment::where('whodid', $this->whodid)
+                                        ->where('pass','=', $this->passintern)
+                                        ->where('strength','!=', '')
+                                        ->where('toworkon','!=', '')
+                                        ->whereNotNull('strength')
+                                        ->whereNotNull('toworkon')
+                                        ->count();
+
+        $this->denominador = Userpublic::where('name','!=', $this->whodid)
+                                        ->where('pass', $this->passintern)
+                                        ->count();
 
         $theonetovalue = UserPublic::leftJoin('assessments', 'user_public.name', '=', 'assessments.whodid')
         // ->whereNull('assessments.whodid')
@@ -71,6 +95,7 @@ class Assessmentf extends Component
         $myresults = UserPublic::leftJoin('assessments', 'user_public.name', '=', 'assessments.whodid')
         ->where('assessments.whoreceive','=', $id[0])
         ->select('assessments.whoreceive as whoreceive','user_public.name' ,'assessments.whodid','assessments.strength','assessments.toworkon','assessments.obs')
+        ->take($this->numerador)
         ->get()->toArray();
 
         $this->myresults = $myresults;
@@ -83,7 +108,6 @@ class Assessmentf extends Component
     public function onmychange($i = null, $k = null, $w = null)
     {
 
-        // dd($i,$k,$w);
         $user = $i;
         $passintern = $k;
         $wwhoreceive = $w;
@@ -92,20 +116,31 @@ class Assessmentf extends Component
         $this->whoreceive = $w;
         $this->passintern = $k;
 
-    //    dd($this->whodid, $this->whoreceive, $this->passintern);
-
-        // DB::enableQueryLog();
-        // $queries = DB::getQueryLog();
-        // Log::info($queries);
-        // dd($passintern, $user);
-        $mycoletion = UserPublic::where('pass', $this->passintern)
-        ->where('name', '!=', $this->whodid)
-        ->select('id as whoreceive', 'name')
+        $mycoletion = UserPublic::leftJoin('assessments', function($join) {
+            $join->on('user_public.id', '=', 'assessments.whoreceive')
+                 ->where('assessments.whodid', '=', $this->whodid)
+                 ->orWhereNull('assessments.whoreceive');
+        })
+        ->select('user_public.id as whoreceive', 'user_public.name', 'user_public.pass', 'assessments.whodid', 'assessments.whoreceive as checktrue', 'assessments.pass', 'assessments.strength','assessments.toworkon')
+        ->where('user_public.name', '<>', $this->whodid)
+        ->where('user_public.pass', '=', $this->passintern)
         ->get();
 
         $this->mycoletion = $mycoletion;
 
-        // dump($this->mycoletion);
+        $this->numerador = Assessment::where('whodid', $this->whodid)
+                                        ->where('pass', $this->passintern)
+                                        ->where('strength','!=', '')
+                                        ->where('toworkon','!=', '')
+                                        ->whereNotNull('strength')
+                                        ->whereNotNull('toworkon')
+                                        ->count();
+
+        $this->denominador = Userpublic::where('name','!=', $this->whodid)
+                                        ->where('pass', $this->passintern)
+                                        ->count();
+
+  
         
         $mydata = UserPublic::leftJoin('assessments', 'user_public.name', '=', 'assessments.whodid')
         // ->whereNull('assessments.whodid')
@@ -113,6 +148,7 @@ class Assessmentf extends Component
         ->where('user_public.name','!=', $this->whodid)
         ->where('assessments.whoreceive','=', $this->whoreceive)
         ->select('user_public.id as whoreceive','user_public.name as whodid' ,'assessments.strength','assessments.toworkon','assessments.obs')
+        ->take($this->numerador)
         ->get();
 
         $this->mydata = $mydata;
@@ -122,11 +158,15 @@ class Assessmentf extends Component
     // Check if a record already exists with the same whodid and whoreceive
     $existingRecord = Assessment::where('whodid', $i)
                                 ->where('whoreceive', $w)
+                                ->where('pass', $this->passintern)
                                 ->first();
+
+        // dd($this->passintern);
 
     if ($existingRecord) {
             // Update the existing record
             $existingRecord->update([
+                'pass' => $this->passintern,
                 'strength' => $this->strength,
                 'toworkon' => $this->toworkon,
                 'obs' => $this->obs,
@@ -136,6 +176,7 @@ class Assessmentf extends Component
         $data = [
             'whodid' => $i,
             'whoreceive' => $w,
+            'pass' => $this->passintern,
             'strength' => $this->strength,
             'toworkon' => $this->toworkon,
             'obs' => $this->obs,
@@ -158,6 +199,7 @@ class Assessmentf extends Component
     {
         $data = [
             'whodid' => $this->whodid,
+            'pass' => $this->passintern,
             'whoreceive' => $this->whoreceive,
             'strength' => $this->strength,
             'toworkon' => $this->toworkon,

@@ -22,6 +22,7 @@ class CreateUserpublicAndAssessmentsTables extends Migration
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
             $table->string('whodid');
+            $table->string('pass')->nullable();
             $table->foreignId('whoreceive')->constrained('user_public');
             $table->string('strength')->nullable();
             $table->string('toworkon')->nullable();
