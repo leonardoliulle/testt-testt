@@ -11,6 +11,8 @@ use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\AssessmentfController;
 use App\Http\Controllers\TesttController;
 
+use App\Http\Controllers\ReportsviewController;
+
 
 
 route::get('testt/create', [TesttController::class, 'create'])->name('testt.create');
@@ -21,6 +23,11 @@ Route::post('userpublic/store', [UserPublicController::class, 'store'])->name('u
 Route::get('userpublic/show', [UserPublicController::class, 'show'])->name('userpublic.show');
 Route::get('assessment/show', [AssessmentController::class, 'show'])->name('asssessment.show');
 
+
+route::get('reportsview/index', [ReportsviewController::class, 'index'])->name('reportsview.index');
+route::post('reportsview/index', [ReportsviewController::class, 'index'])->name('reportsview.index');
+route::get('reportsview/newindex', [ReportsviewController::class, 'newindex'])->name('reportsview.newindex');
+route::post('reportsview/newindex', [ReportsviewController::class, 'newindex'])->name('reportsview.newindex');
 
 
 
