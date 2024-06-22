@@ -62,14 +62,15 @@ body {font-family: Arial;}
 
 <div class="tab">
     @foreach ($header as $item)
-        <button class="tablinks" onclick="openCity(event, '{{$item->alias}}')">{{$item->alias}}</button>
+        <button class="tablinks" onclick="openCity(event, '{{$item->alias}}')">{{$item->name}}</button>
     @endforeach
 </div>
 
 @foreach ($header as $item)
 <div id="{{$item->alias}}" class="tabcontent">
-  <h3>{{$item->name}}</h3>
-  <p>{{$item->httplink}}</p>
+<iframe title="{{$item->alias}}" width="720px" height="1280px" src="{{$item->httplink}}" frameborder="0" allowFullScreen="true"></iframe>
+  <!-- <h3></h3> -->
+  <!-- <p></p> -->
 </div>
 @endforeach
 

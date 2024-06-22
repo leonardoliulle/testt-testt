@@ -10,12 +10,14 @@
 
  
     
+    @livewireStyles
+
 
     @foreach($mycoletion as $user)
 
 
         @if (!empty($user->checktrue) and !empty($user->strength) and !empty($user->toworkon))
-        </h1><a href="{{ route('asssessment.show', ['i' => $whodid, 'k' => $passintern, 'w' => $user->whoreceive ]) }}" class='btn btn-success'>{{ base64_decode($user->name) }}</a>
+        <a href="{{ route('asssessment.show', ['i' => $whodid, 'k' => $passintern, 'w' => $user->whoreceive ]) }}" class='btn btn-success'>{{ base64_decode($user->name) }}</a>
         @elseif ($user->whoreceive <> $this->whoreceive)
         <a href="{{ route('asssessment.show', ['i' => $whodid, 'k' => $passintern, 'w' => $user->whoreceive ]) }}" class='btn btn-danger'>{{ base64_decode($user->name) }}</a>
         @else
@@ -57,7 +59,7 @@
     <script>
         setTimeout(function() {
             location.reload();
-        }, 10000); // 10 seconds
+        }, 40000); // 10 seconds
     </script>
 
 
@@ -84,6 +86,7 @@
         <li>{{$me['obs']}}</li>
     @endforeach
     </div>
+    @livewireScripts
 
 </div>
 
