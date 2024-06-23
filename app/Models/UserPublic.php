@@ -10,6 +10,7 @@ class UserPublic extends Model
     use HasFactory;
 
     protected $table = 'user_public'; // Specify the custom table name here
+    protected $fillable = ['name', 'pass'];
 
     public function assessments()
     {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Testt Compile</title>
+    <title>TDI Reports Views</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
@@ -28,13 +28,13 @@ body {font-family: Arial;}
 /* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
-  float: left;
+  float: center;
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 12px 6px;
   transition: 0.3s;
-  font-size: 17px;
+  font-size: 12px;
 }
 
 /* Change background color of buttons on hover */
@@ -54,9 +54,27 @@ body {font-family: Arial;}
   border: 1px solid #ccc;
   border-top: none;
 }
+
+.iframe-container {
+    display: flex;
+    justify-content: center; /* Aligns content horizontally (main axis) */
+    align-items: center; /* Aligns content vertically (cross axis) */
+    height: 100vh; /* Adjust height as needed */
+}
+
+.iframe-container {
+    display: flex;
+    justify-content: center; /* Aligns content horizontally (main axis) */
+    align-items: center; /* Aligns content vertically (cross axis) */
+    height: 100vh; /* Adjust height as needed */
+}
+
+
 </style>
 </head>
 <body>
+
+
 
 
 
@@ -68,7 +86,7 @@ body {font-family: Arial;}
 
 @foreach ($header as $item)
 <div id="{{$item->alias}}" class="tabcontent">
-<iframe title="{{$item->alias}}" width="720px" height="1280px" src="{{$item->httplink}}" frameborder="0" allowFullScreen="true"></iframe>
+<iframe title="{{$item->alias}}" width="1280px" height="720px" src="{{$item->httplink}}" frameborder="0" allowFullScreen="true"></iframe>
   <!-- <h3></h3> -->
   <!-- <p></p> -->
 </div>
