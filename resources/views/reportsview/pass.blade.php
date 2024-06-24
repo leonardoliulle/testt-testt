@@ -100,6 +100,20 @@ span.psw {
   cursor: pointer;
 }
 
+body::after {
+    content: "";
+    background-image: url('http://techdatainsights.cloud/allinfront/images/banner.jpg'); /* Replace with your image URL */
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the image */
+    opacity: 0.5; /* Adjust opacity as needed */
+    position: fixed; /* Fixed position to stay in place */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place behind all other content */
+}
+
 /* Add Zoom Animation */
 .animate {
   -webkit-animation: animatezoom 0.6s;

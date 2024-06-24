@@ -132,12 +132,13 @@ span.psw {
 
 <!-- <h2>Acessar</h2> -->
 
-<button class='btn btn-primary' onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Logar</button>
+<button class='btn btn-primary' onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Entrar em sala</button>
 
 <div id="id01" class="modal">
   
-  <form class="modal-content animate" action="{{route('assessment.feedbackloop')}}" method="post">
-    @csrf
+  <form class="modal-content animate" action="{{route('assessment.feedbackloop')}}" method="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
     
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>

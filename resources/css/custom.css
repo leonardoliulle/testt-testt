@@ -1,0 +1,25 @@
+/*
+Theme Name: Worthy - Free Powerful Theme by HtmlCoder
+Author:HtmlCoder
+Author URI:http://www.htmlcoder.me
+Version:1.0.0
+Created:November 2014
+License: Creative Commons Attribution 3.0 License (https://creativecommons.org/licenses/by/3.0/)
+File Description: Place here your custom CSS styles
+*/
+
+.buttontransparency {
+    background-color: rgba(0, 123, 255, 0.7); /* Blue background with 70% opacity */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Padding for the button */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Smooth corners */
+    font-family: Arial, sans-serif; /* Font family for the button text */
+    font-size: 16px; /* Font size for the button text */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease; /* Smooth transition for hover effects */
+    text-decoration: none; /* Remove underline for links styled as buttons */
+    display: inline-block; /* Ensure the button behaves as an inline-block */
+    opacity: 0.9; /* Overall opacity of the button */
+}
